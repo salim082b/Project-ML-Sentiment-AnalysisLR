@@ -1,0 +1,25 @@
+#!/bin/bash
+SERVICE="startpTSALR.sh"
+JSERVICE="Elasticsearch"
+while true
+do
+
+if jps |grep "$JSERVICE" >/dev/null
+then
+    echo "$JSERVICE is running"
+else
+    echo "$JSERVICE stopped"
+    elasticsearch &
+    sleep 60
+fi
+
+if ps -C "$SERVICE" >/dev/null
+then
+    echo "$SERVICE is running"
+else
+    echo "$SERVICE stopped"
+    ~/02ProjectTSALR/"$SERVICE"
+fi
+sleep 60
+done
+
